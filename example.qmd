@@ -1,0 +1,94 @@
+---
+title: "Iframe Example"
+format:
+  html: default
+  pdf: default
+---
+
+# iframe demonstration
+
+This code embeds an iframe in the html version where the user specifies:
+
+  * `[class]` - default: `"NQ"` (historical reasons)
+  * `[path]` - default: *none*
+  * `[width]` - default: `"600px"`
+  * `[height]` - default: `"400px"`
+  * `[url]` - default: empty string (`""`)
+  * `[urltext]` - default: "Link to question"
+  * `[pdftext]` - default: "A question appears here in the HTML version."
+
+**All parameters should be passed as strings.**
+
+**Only `path` is mandatory, this is the source of the iframe. This can be a local file.**
+
+In this example document, I have used a downloaded maths question from [Numbas](https://numbas.mathcentre.ac.uk) which is then saved locally and pointed to by the iframe. The contents can be found in the `/numbas/` folder.
+
+## HTML output
+
+This is the HTML injected into HTML format output:
+
+```
+<div class="[class]">
+<iframe src="[path]" width="[width]" height="[height]" sandbox="allow-same-origin allow-scripts allow-forms">
+<p>Your browser does not support iframes.</p>
+</iframe>
+</div>
+```
+
+## PDF output
+
+In the PDF output, if `url` is blank, it prints the following (customizable) text (see custom `pdftext` above):
+
+> A question appears here in the HTML version.
+
+But when `url` is not blank it creates a hyperlink with text 
+
+> [Link to question](#)
+
+pointing to the `url` string specified. 
+
+The link text `Link to question` can be customized via the `urltext` parameter.
+
+## Examples
+
+### Simple call, no url attached
+
+{{< iframe 
+    path = "/numbas/Q13/index.html",
+    width="90%",
+    height="900px"
+>}}
+
+### Simple call, no url attached, but custom text in PDF
+
+{{< iframe 
+    path = "/numbas/Q13/index.html",
+    width="90%",
+    height="900px",
+    pdftext = "An frog appears here in the HTML version."
+>}}
+
+### Same call but with url attached
+
+{{< iframe 
+  path = "/numbas/Q13/index.html",
+  width = "90%",
+  height = "900px",
+  url = "https://numbas.mathcentre.ac.uk/question/119566/matrix-linear-combination/embed/?token=e221efa1-3a50-429c-bb4a-8c63d2610114"
+>}}
+
+### New link with urltext specified
+
+{{< iframe 
+  path = "https://www.quarto.org",
+  url = "https://www.quarto.org",
+  urltext = "Quarto homepage"
+>}}
+
+### A failed call, lacking path
+
+{{< iframe 
+  width = "90%",
+  height = "900px",
+  url = "https://numbas.mathcentre.ac.uk/question/119566/matrix-linear-combination/embed/?token=e221efa1-3a50-429c-bb4a-8c63d2610114"
+>}}
