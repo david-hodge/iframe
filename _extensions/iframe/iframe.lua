@@ -16,6 +16,28 @@ return {
     local plain_text  = get_arg(kwargs, "pdftext", "A question appears here in the HTML version.")
     local div_class = get_arg(kwargs, "class", "NQ")
 
+    -- Added undocumented feature to enable loading youtube videos in a light way
+    -- this needs js loading too look for lite-youtube
+    local yt_light  = get_arg(kwargs, "youtube-light", "")
+
+    -- if youtube-light parameter is provided, override HTML behavior
+    if yt_light ~= "" then
+      -- HTML output: lite-youtube
+      local raw_html = string.format('<lite-youtube videoid="%s"></lite-youtube>', yt_light)
+      -- PDF/fallback output: clickable link as below
+      local raw_latex = string.format("\\href{https://youtu.be/%s}{https://youtu.be/%s}", yt_light, yt_light)
+      local raw_string = string.format("<https://youtu.be/%s>", yt_light)
+
+      if quarto.doc.isFormat("html") then
+        return pandoc.RawBlock("html", raw_html)
+      elseif quarto.doc.isFormat("pdf") then
+        return pandoc.RawBlock("tex", raw_latex)
+      else
+        return pandoc.Para({pandoc.Str(raw_string)})
+      end
+    end
+    -- end of new feature
+
     if path == "" then
       -- Check path has been passed (non-empty)
       io.stderr:write("\27[31m⚠️ Warning: 'path' parameter for iframe shortcode is empty.\27[0m\n")
