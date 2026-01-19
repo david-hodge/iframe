@@ -25,7 +25,7 @@ return {
       -- HTML output: lite-youtube
       local raw_html = string.format('<lite-youtube videoid="%s"></lite-youtube>', yt_light)
       -- PDF/fallback output: clickable link as below
-      local raw_latex = string.format("\\href{https://youtu.be/%s}{https://youtu.be/%s}", yt_light, yt_light)
+      local raw_latex = string.format("\\href{https://youtu.be/%s}{YouTube video}", yt_light, yt_light)
       local raw_string = string.format("<https://youtu.be/%s>", yt_light)
 
       if quarto.doc.isFormat("html") then
