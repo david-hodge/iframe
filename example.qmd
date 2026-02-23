@@ -92,3 +92,26 @@ The link text `Link to question` can be customized via the `urltext` parameter.
   height = "900px",
   url = "https://numbas.mathcentre.ac.uk/question/119566/matrix-linear-combination/embed/?token=e221efa1-3a50-429c-bb4a-8c63d2610114"
 >}}
+
+## New youtube-light feature
+
+YouTube videos embedded into Quarto via the usual `video` shortcode seem to suffer from the issue of pre-loading all the Google analytics, cookies and generally slowing down page loads.
+
+Utilising the lite-youtube-embed code from here [https://github.com/justinribeiro/lite-youtube](https://github.com/justinribeiro/lite-youtube) this iframe extension also allows a lightweight way to embed YouTube videos without cookies etc..
+
+You need to load the lite-yt-embed.js and lite-yt-embed.css from the repo above, for example in your `_quarto.yml` file like this:
+
+format:
+  html:
+    include-in-header:
+          - text: |
+              <script src="https://cdn.jsdelivr.net/npm/lite-youtube-embed@0.3.0/src/lite-yt-embed.js"></script>
+              <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/lite-youtube-embed@0.3.0/src/lite-yt-embed.css" />
+
+Then in your Quarto Markdown file you just type:
+
+{{< iframe youtube-light="GPsFwdZoDKo" >}}
+
+where GPs... is your YouTube video ID.
+
+In the PDF a link will be printed to say "YouTube video link" with a hyperlink to the video.
