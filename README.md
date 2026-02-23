@@ -53,3 +53,28 @@ However, the `pdftext` is only used if no `url` is provided. Otherwise the PDF v
 
 Here is the source code for more examples: [example.qmd](example.qmd).
 
+## New Youtube feature
+
+YouTube videos embedded into Quarto via the usual `video` shortcode seem to suffer from the issue of pre-loading all the Google analytics, cookies and generally slowing down page loads.
+
+Utilising the lite-youtube-embed code from here [https://github.com/justinribeiro/lite-youtube](https://github.com/justinribeiro/lite-youtube) this iframe extension also allows a lightweight way to embed YouTube videos without cookies etc..
+
+You need to load the lite-yt-embed.js and lite-yt-embed.css from the repo above (see this repo's readme), for example in your `_quarto.yml`.
+
+```
+format:
+  html:
+    include-in-header:
+          - text: |
+              <script src="https://cdn.jsdelivr.net/npm/lite-youtube-embed@0.3.0/src/lite-yt-embed.js"></script>
+              <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/lite-youtube-embed@0.3.0/src/lite-yt-embed.css" />
+```
+Then in your Quarto Markdown file you just type:
+```
+{{< iframe youtube-light="GPsFwdZoDKo" >}}
+```
+where GPsFwsZ... is your YouTube video ID.
+
+In the PDF a link will be printed to say "YouTube video link" with a hyperlink to the video.
+
+The example.qmd doesn't demonstrate it live, so as not to forcibly load external js files against your wishes.
