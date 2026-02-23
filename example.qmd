@@ -99,7 +99,7 @@ YouTube videos embedded into Quarto via the usual `video` shortcode seem to suff
 
 Utilising the lite-youtube-embed code from here [https://github.com/justinribeiro/lite-youtube](https://github.com/justinribeiro/lite-youtube) this iframe extension also allows a lightweight way to embed YouTube videos without cookies etc..
 
-You need to load the lite-yt-embed.js and lite-yt-embed.css from the repo above, for example in your `_quarto.yml` file like this:
+You need to load the lite-yt-embed.js and lite-yt-embed.css from the repo above (see this repo's readme), for example in your `_quarto.yml`.
 
 format:
   html:
@@ -109,9 +109,11 @@ format:
               <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/lite-youtube-embed@0.3.0/src/lite-yt-embed.css" />
 
 Then in your Quarto Markdown file you just type:
-
+```
 {{< iframe youtube-light="GPsFwdZoDKo" >}}
-
+```
 where GPs... is your YouTube video ID.
 
 In the PDF a link will be printed to say "YouTube video link" with a hyperlink to the video.
+
+This example doesn't demonstrate it live so as not to forcible load external js files against your wishes.
